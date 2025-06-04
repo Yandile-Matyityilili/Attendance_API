@@ -60,3 +60,38 @@ export const getUsersByDepartment = async (req, res) => {
     }
 };
 
+export const getUsersByTimestamp = async (req, res) => {
+    try {
+        // Parse query parameters
+        const filters = {
+            // Date filters
+            date: req.query.date,
+            startDate: req.query.start_date,
+            endDate: req.query.end_date,
+            
+            // Time filters
+            time: req.query.time,
+            startTime: req.query.start_time,
+            endTime: req.query.end_time,
+            hour: req.query.hour,
+            minute: req.query.minute,
+            
+            // Exact timestamp
+            exactTimestamp: req.query.timestamp,
+            
+            // Pagination
+            limit: req.query.limit
+        };
+        
+        // Validate time format if provided
+        if (filters.time && !/^([01]\d|2[0-3]):([0-5]\d)(:[0-5]\d)?$/.test(filters.time)) {
+            return res.status(400).json({ message: 'Invalid time format. Use HH:MM or HH:MM:SS' });
+        }
+        
+        const users = await User.getByTimestamp(filters);
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+

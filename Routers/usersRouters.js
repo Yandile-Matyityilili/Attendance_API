@@ -6,7 +6,8 @@ import {
     createUser,
     updateUser,
     deleteUser,
-    getUsersByDepartment
+    getUsersByDepartment,
+    getUsersByTimestamp
 } from '../Controllers/usersControllers.js';
 const router = express.Router();
 
@@ -17,6 +18,8 @@ router.post('/', createUser);
 router.patch('/:id', updateUser);
 router.delete('/:id', deleteUser);
 
+
 // Additional routes
 router.get('/department/:department', getUsersByDepartment);
+router.get('/filter/timestamp', getUsersByTimestamp);
 export default router;
