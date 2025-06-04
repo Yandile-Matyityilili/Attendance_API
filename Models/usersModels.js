@@ -5,24 +5,24 @@ import  { pool }  from '../Config/config.js';
 
 class User {
     static async getAll() {
-        const [rows] = await pool.query('SELECT * FROM users WHERE active = TRUE');
+        const [rows] = await pool.query('SELECT * FROM users WHERE status = TRUE');
         return rows;
     }
     static async getById(userId) {
         const [rows] = await pool.query('SELECT * FROM users WHERE user_id = ?', [userId]);
         return rows[0];
     }
-    static async create(username, department) {
+    static async create(username, department, email) {
         const [result] = await pool.query(
-            'INSERT INTO users (username, department) VALUES (?, ?)',
-            [username, department]
+            'INSERT INTO users (username, department, email) VALUES (?, ?, ?)',
+            [username, department,email]
         );
         return result.insertId;
     }
-    static async update(userId, username, department, active) {
+    static async update(userId, username, department, status, email) {
         await pool.query(
-            'UPDATE users SET username = ?, department = ?, active = ? WHERE user_id = ?',
-            [username, department, active, userId]
+            'UPDATE users SET username = ?, department = ?, status = ?, email=?, WHERE user_id = ?',
+            [username, department, status, email, userId]
         );
     }
     static async delete(userId) {
@@ -30,7 +30,7 @@ class User {
     }
     static async getByDepartment(department) {
         const [rows] = await pool.query(
-            'SELECT * FROM users WHERE department = ? AND active = TRUE',
+            'SELECT * FROM users WHERE department = ? AND status = TRUE',
             [department]
         );
         return rows;

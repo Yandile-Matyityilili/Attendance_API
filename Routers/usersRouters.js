@@ -9,6 +9,7 @@ import {
     getUsersByDepartment,
     getUsersByTimestamp
 } from '../Controllers/usersControllers.js';
+
 const router = express.Router();
 
 // User CRUD routes
