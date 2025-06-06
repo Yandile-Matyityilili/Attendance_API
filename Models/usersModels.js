@@ -21,7 +21,7 @@ class User {
     }
     static async update(userId, username,status, department, email) {
         await pool.query(
-            'UPDATE users SET username = ?, status = ?, department = ?, email=?, WHERE user_id = ?',
+            'UPDATE users SET username = ?, status = ?, department = ?, email=? WHERE user_id = ?',
             [username, status, department, email, userId]
         );
     }
