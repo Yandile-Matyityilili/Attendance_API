@@ -19,7 +19,6 @@ router.post('/', createUser);
 router.patch('/:id', updateUser);
 router.delete('/:id', deleteUser);
 
-
 // Additional routes
 router.get('/department/:department', getUsersByDepartment);
 router.get('/filter/timestamp', getUsersByTimestamp);

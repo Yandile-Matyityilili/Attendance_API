@@ -12,17 +12,17 @@ class User {
         const [rows] = await pool.query('SELECT * FROM users WHERE user_id = ?', [userId]);
         return rows[0];
     }
-    static async create(username, department, email) {
+    static async create(username, status, department, email) {
         const [result] = await pool.query(
-            'INSERT INTO users (username, department, email) VALUES (?, ?, ?)',
-            [username, department,email]
+            'INSERT INTO users (username, status, department, email) VALUES (?, ?, ?, ?)',
+            [username, status, department, email]
         );
         return result.insertId;
     }
-    static async update(userId, username, department, status, email) {
+    static async update(userId, username,status, department, email) {
         await pool.query(
-            'UPDATE users SET username = ?, department = ?, status = ?, email=?, WHERE user_id = ?',
-            [username, department, status, email, userId]
+            'UPDATE users SET username = ?, status = ?, department = ?, email=?, WHERE user_id = ?',
+            [username, status, department, email, userId]
         );
     }
     static async delete(userId) {

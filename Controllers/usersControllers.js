@@ -21,23 +21,23 @@ export const getUserById = async (req, res) => {
 };
 export const createUser = async (req, res) => {
     try {
-        const { username, department, email } = req.body;
+        const { username, status, department, email } = req.body;
         if (!username || !department || !email) {
             return res.status(400).json({ message: 'Username, email and department are required' });
         }
-        const userId = await User.create(username, department, email);
-        res.status(201).json({ id: userId, username, department, email });
+        const userId = await User.create(username, status, department, email);
+        res.status(201).json({ id: userId, username, status, department, email });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 export const updateUser = async (req, res) => {
     try {
-        const { username, department, status, email } = req.body;
+        const { username, status, department,  email } = req.body;
         if (!username || !department || !email || status === undefined) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-        await User.update(req.params.id, username, department, status, email);
+        await User.update(req.params.id, username, status, department,  email);
         res.json({ message: 'User updated successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
